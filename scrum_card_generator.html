@@ -28,7 +28,7 @@
         .identification
         {
             position: absolute;
-            top: 10px;
+            top: 60px;
             left: 10px;
         }
         .identification span
@@ -65,6 +65,9 @@
         {
             page-break-before:always;
         }
+        h3 {
+        	font-size: 60px;
+        }
         </style>
         <script>
             $(document).ready(function(){
@@ -74,13 +77,10 @@
                 event.preventDefault();
                 csv_data = $.csv()($("#csv_data").val());
                 $.each(csv_data, function(index, value) {
-                      template = '<article class="story_item"><header><h2>:title</h2></header><dl class="story_item_text"><dt>User Story</dt><dd>:user_story</dd></dl><dl class="story_item_text"><dt>How to test</dt><dd>:how_to_test</dd></dl><section class="identification"><span>Id</span>#:id</section><section class="numbers"><dl><dt>Area</dt><dd>:area</dd></dl><dl><dt>Estimate</dt><dd>:estimate</dd></dl></section></article>';
+                      template = '<article class="story_item"><header><h2>:title</h2></header><section class="identification"><span>Id</span><h3>:id</h3></section><section class="numbers"><dl><dt>Estimate</dt><dd>:estimate</dd></dl></section></article>';
                       template = template.replace(":id",value[0] === undefined ? "&nbsp;" : value[0]);
                       template = template.replace(":title",value[1] === undefined ? "&nbsp;" : value[1]);
-                      template = template.replace(":user_story",value[2] === undefined ? "&nbsp;" : value[2]);
-                      template = template.replace(":how_to_test",value[3] === undefined ? "&nbsp;" : value[3]);
-                      template = template.replace(":area",value[4] === undefined ? "&nbsp;" : value[4]);
-                      template = template.replace(":estimate",value[5] === undefined ? "&nbsp;" : value[5]);
+                      template = template.replace(":estimate",value[2] === undefined ? "&nbsp;" : value[2]);
                       $(".content").append(template);
                     });
                  $(".story_item:nth-child(3n+2)").addClass("page_break")
@@ -103,18 +103,6 @@
                     <dl>
                         <dt>Title</dt>
                         <dd>Title of the card that just sums up what the story is about</dd>
-                    </dl>
-                    <dl>
-                        <dt>User story</dt>
-                        <dd>The actual user story</dd>
-                    </dl>
-                    <dl>
-                        <dt>How to demo</dt>
-                        <dd>How to demo describes which steps are needed to be made and which result is to be expected</dd>
-                    </dl>
-                    <dl>
-                        <dt>Area</dt>
-                        <dd>An area if to group the story with.</dd>
                     </dl>
                     <dl>
                         <dt>Estimate</dt>
