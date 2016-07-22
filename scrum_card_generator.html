@@ -4,7 +4,7 @@
         <meta content="text/html; charset=UTF-8" http-equiv="content-type">
         <title></title>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-        <script src="http://js-tables.googlecode.com/svn/trunk/jquery.csv.js"></script>
+        <script src="https://raw.githubusercontent.com/evanplaice/jquery-csv/master/src/jquery.csv.min.js"></script>
         <style type="text/css">
         .content
         {
@@ -75,15 +75,17 @@
 
              $(".button_generate").click(function(event){
                 event.preventDefault();
-                csv_data = $.csv()($("#csv_data").val());
-                $.each(csv_data, function(index, value) {
-                      template = '<article class="story_item"><header><h2>:title</h2></header><section class="identification"><span>Id</span><h3>:id</h3></section><section class="numbers"><dl><dt>Estimate</dt><dd>:estimate</dd></dl></section></article>';
+                 var data = $("#csv_data").val();
+                 var rows = data.split("\n");
+                 rows.forEach( function getvalues(ourrow) {
+                     var value = ourrow.split(",");
+                    template = '<article class="story_item"><header><h2>:title</h2></header><section class="identification"><span>Id</span><h3>:id</h3></section><section class="numbers"><dl><dt>Estimate</dt><dd>:estimate</dd></dl></section></article>';
                       template = template.replace(":id",value[0] === undefined ? "&nbsp;" : value[0]);
                       template = template.replace(":title",value[1] === undefined ? "&nbsp;" : value[1]);
                       template = template.replace(":estimate",value[2] === undefined ? "&nbsp;" : value[2]);
                       $(".content").append(template);
-                    });
-                 $(".story_item:nth-child(3n+2)").addClass("page_break")
+				});
+                 $(".story_item:nth-child(4n+2)").addClass("page_break")
                  $(".story_item:first").removeClass("page_break")
                  $("form").hide();
                 });
